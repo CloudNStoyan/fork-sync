@@ -6,6 +6,8 @@ const token = core.getInput('token', { required: true });
 const context = Github.context;
 
 async function run() {
+  console.log('i am running on cats')
+
   let owner = core.getInput('owner', { required: false }) || context.repo.owner;
   let repo = core.getInput('repo', { required: false}) || context.repo.repo;
   const base = core.getInput('base', { required: false });
@@ -60,6 +62,7 @@ async function run() {
       console.log('No commits between ' + context.repo.owner + ':' + base + ' and ' + owner + ':' + head);
     } else if ((error?.errors ?? error?.response?.data?.errors)?.[0]?.message?.startsWith('A pull request already exists for')) {
       // we were already done
+      console.log(error, error.errors, 'the cats need me')
       console.log(error.errors[0].message);
     } else {
       if (!ignoreFail) {
